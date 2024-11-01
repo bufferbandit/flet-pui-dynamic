@@ -99,27 +99,19 @@ class DynamicPuiFletControl(FBase):
         self.ui.update()
 
     def removeChild(self, idx, child):
-        # print("remove childs ",self.ui.controls)
-        # self.ui.controls.pop(idx)
-        # self.ui.update()
 
-        childholding_attr_name = "controls"  # ( self.element_custom_control_data.get("childholder") or "controls")
+        childholding_attr_name =  self.element_custom_control_data.get("childholder") or "controls"
         child_holder_element = getattr(self.ui, childholding_attr_name)
 
         is_sequence_of_controls = self.check_child_holder_for_control_sequence(childholding_attr_name)
 
         # If the child is a sequence of controls, insert it in there
         if is_sequence_of_controls:
-            # self.ui.controls.insert(idx, child.outer)
-            #child_holder_element.insert(idx, child.outer)
             if  self.ui.controls:
                 self.ui.controls.pop(idx)
-            # else:
-            #     raise Exception("Trying to pop from empty children")
 
         # Otherwise set the child attribute to it
         else:
-            # self.ui.clean()
             setattr(self.ui, childholding_attr_name, None)
 
         self.ui.update()
